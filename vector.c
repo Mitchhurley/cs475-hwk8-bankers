@@ -4,17 +4,17 @@
 
 // TODO - Define vector and matrix operations
 
-int** mat_clone(int** mat, int col, int rows){
+int** mat_clone(int** matrix, int cols, int rows){
     //allocate for the clone matrix head
     int** clone = malloc(rows * sizeof(int*));
     //using the size params, malloc for the rows
     for (int i = 0; i < rows; i++){
-        clone[i] = malloc(col * sizeof(int));
+        clone[i] = malloc(cols * sizeof(int));
         for (int j = 0; j < cols; j++) {
             clone[i][j] = matrix[i][j];
         }
     }
-    return clone
+    return clone;
 }
 
 void add_mats(int** matrix1, int** matrix2, int rows, int cols, int** result_matrix) {
@@ -40,7 +40,7 @@ int* vec_clone(int* vec, int length){
     for (int i = 0; i < length; i++){
         clone[i] = vec[i];
     }
-    return clone
+    return clone;
 }
 
 void add_vecs(int* vec1, int* vec2, int size, int* result_vec) {
