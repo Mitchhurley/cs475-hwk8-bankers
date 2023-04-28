@@ -54,3 +54,25 @@ void sub_vecs(int* vec1, int* vec2, int size, int* result_vec) {
         result_vec[i] = vec1[i] - vec2[i];
     }
 }
+
+int vec_comp(int* vec1, int* vec2, int size){
+    for (int i = 0; i < size; i++) {
+        if(vec1[i] != vec2[i]){
+            return 1;
+        }
+    }
+    return 0;
+}
+void print_mat(int** mat, int cols, int rows){
+    for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                printf("%d ", mat[i][j]);
+            }
+            printf("\n");
+        }
+}
+void print_vec(int* vec, int size){
+    for (int i = 0; i < size; i++) {
+        printf("%d ", vec[i]);
+    }
+}
