@@ -21,6 +21,7 @@ void endAndFree(int error, int numResources, int numProcesses, int**maxDemandMat
   }
   return;
 }
+
 int main(int argc, char *argv[])
 {
   // TODO: attempt to open scenario file and scan data into allocated structures
@@ -78,6 +79,7 @@ int main(int argc, char *argv[])
   if(error==1){
     endAndFree(error,numResources,numProcesses,maxDemandMatrix,allocationMatrix,totalResourceVector);
   }
+  //isSafe(totalResourceVector, allocationMatrix,numResources,numProcesses);
   // TODO: Run banker's safety algorithm
   endAndFree(0,numResources,numProcesses,maxDemandMatrix,allocationMatrix,totalResourceVector);
   return 0;

@@ -1,1 +1,3 @@
 /* declarations related to banker's algorithm */
+void isSafe(int* available, int** alloc, int** need, int m, int n);
+void print_schedules(int* finish, int** sequence, int num_schedules, int n); 
