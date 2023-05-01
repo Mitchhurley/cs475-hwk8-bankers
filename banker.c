@@ -12,10 +12,8 @@ void isSafe(int* available, int** alloc, int** need, int m, int n){
     //init finish array
     int* finish = malloc(sizeof(int) * n);
     //keep track of safe sequence
-    int** safe_seq = malloc(sizeof(int*) * (n * n));
-    for (int i = 0; i < n; i++) {
-        safe_seq[i] = malloc(sizeof(int) * n);
-    }
+    int* safe_seq = malloc(sizeof(int) * n);
+    
     int seq_top = -1;
     //keep track of number of safe sequences
     int count = 0;
@@ -132,6 +130,20 @@ int ** subtractMatrices(int** matrix1, int** matrix2, int outerLength, int inner
         }
     }
     return diffMatrix;
+}
+
+void isSafe2(int* available, int** alloc, int** need, int m, int n){
+    //Create the work vector from available
+    int* work = vec_clone(available, m);
+    //init finish array
+    int* finish = malloc(sizeof(int) * n);
+    //keep track of safe sequence
+    int* safe_seq = malloc(sizeof(int) * n);
+    if(recursive_test(work, alloc, need, m, n, 0, finish, safe_seq)){
+        //safe
+    }else{
+        //print unsafe stuff
+    }
 }
 
 bool recursive_test(int* available, int** alloc, int** need, int m, int n, int depth, int* finished,  int* cur_seq){
