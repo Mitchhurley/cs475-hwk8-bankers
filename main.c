@@ -79,8 +79,16 @@ int main(int argc, char *argv[])
   if(error==1){
     endAndFree(error,numResources,numProcesses,maxDemandMatrix,allocationMatrix,totalResourceVector);
   }
+  int** needMatrix = subtractMatrices(maxDemandMatrix, allocationMatrix, numProcesses, numResources);
   //isSafe(totalResourceVector, allocationMatrix,numResources,numProcesses);
   // TODO: Run banker's safety algorithm
+  isSafe(totalResourceVector,allocationMatrix,needMatrix,numResources,numProcesses);
+  for(int i=0;i<numProcesses;i++){
+    free(needMatrix[i]);
+    needMatrix[i]=NULL;
+  }
+  free(needMatrix);
+  needMatrix =NULL;
   endAndFree(0,numResources,numProcesses,maxDemandMatrix,allocationMatrix,totalResourceVector);
   return 0;
 }

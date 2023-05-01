@@ -11,6 +11,9 @@ void isSafe(int* available, int** alloc, int** need, int m, int n){
     int* work = vec_clone(available, m);
     //init finish array
     int* finish = malloc(sizeof(int) * n);
+    for(int i =0;i < n;i++){
+        finish[i] = 0;
+    }
     //keep track of safe sequence
     int** safe_seq = malloc(sizeof(int*) * n);
     for (int i = 0; i < n; i++) {
@@ -20,7 +23,7 @@ void isSafe(int* available, int** alloc, int** need, int m, int n){
     int count = 0;
     //Find thread that can be finished with available reasources
     int i = 0;
-    while (count < n) {
+    while(count<n) {
         for (i = 0; i < n; i++) {
             if (finish[i] == 0) {
                 int canExecute = 1;
@@ -28,7 +31,6 @@ void isSafe(int* available, int** alloc, int** need, int m, int n){
                 for (j = 0; j < m; j++) {
                     if (need[i][j] > work[j]) {
                         canExecute = 0;
-                        break;
                     }
                 }
                 if (canExecute) {
@@ -110,4 +112,14 @@ void print_schedules(int* finish, int** sequences, int count, int n) {
         }
     }
     free(schedule);
+}
+int ** subtractMatrices(int** matrix1, int** matrix2, int outerLength, int innerLength){
+    int** diffMatrix = (int**)malloc(sizeof(int*)*outerLength);
+    for(int i = 0;i<outerLength;i++){
+        diffMatrix[i] = (int*)malloc(sizeof(int)*innerLength);
+        for(int j =0; j<innerLength;j++){
+            diffMatrix[i][j] = matrix1[i][j]-matrix2[i][j];
+        }
+    }
+    return diffMatrix;
 }
