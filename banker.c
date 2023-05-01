@@ -137,7 +137,7 @@ int ** subtractMatrices(int** matrix1, int** matrix2, int outerLength, int inner
 bool recursive_test(int* available, int** alloc, int** need, int m, int n, int depth, int* finished,  int* cur_seq){
     //Create the work vector from available
     int* work = vec_clone(available, m);
-    //init finish array
+    //init finish array from the passed one
     int* finish = vec_clone(finished, n);;
     //keep track of safe sequence
     int* safe_seq = vec_clone(cur_seq, n)
@@ -162,11 +162,16 @@ bool recursive_test(int* available, int** alloc, int** need, int m, int n, int d
                 //set the finish value for the thread to true
                 finish[i] = 1;
                 safe_seq[depth] = i;
-                if (recursive_test(work, alloc, need, m, n, depth + 1, finish, safe_seq)){
-                    free(finish);
-                    free(safe_seq);
-                    free(work);
-                    return true;
+                //if this isnt the last process, recurse
+                if (depth != n){
+                    if (recursive_test(work, alloc, need, m, n, depth + 1, finish, safe_seq)){
+                        free(finish);
+                        free(safe_seq);
+                        free(work);
+                        return true;
+                    }
+                }else {
+                    //print the current schedule
                 }
             }
     }
