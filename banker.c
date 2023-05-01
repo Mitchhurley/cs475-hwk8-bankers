@@ -164,7 +164,7 @@ bool recursive_test(int* available, int** alloc, int** need, int m, int n, int d
                         free(finish);
                         free(safe_seq);
                         free(work);
-                        return false;
+                        break;
                     }
                 }
                 for (k = 0; k < m; k++) {
@@ -183,7 +183,7 @@ bool recursive_test(int* available, int** alloc, int** need, int m, int n, int d
                         return true;
                     }
                 }else {
-                    //print the current schedule
+                    //print the current schedule then return true
                 }
             }
     }
