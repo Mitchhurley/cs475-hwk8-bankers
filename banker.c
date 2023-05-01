@@ -177,16 +177,22 @@ bool recursive_test(int* available, int** alloc, int** need, int m, int n, int d
                         //if this isnt the last process, recurse
                         if (depth != n){
                             if (recursive_test(work, alloc, need, m, n, depth + 1, finish, safe_seq)){
-                                free(finish);
-                                free(safe_seq);
-                                free(work);
-                                return true;
+                                happy = 1;
                             }
                         }else {
-                            //print the current schedule, free then return true
+                            //print the current schedule, free and set happy to one
                         }
                     
                     }
             }
+    }
+    free(finish);
+    free(safe_seq);
+    free(work);
+    if (happy){
+        return true;
+    }
+    else{
+        return false;
     }
 }
