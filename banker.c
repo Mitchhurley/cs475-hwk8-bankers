@@ -150,41 +150,43 @@ bool recursive_test(int* available, int** alloc, int** need, int m, int n, int d
     //Create the work vector from available
     int* work = vec_clone(available, m);
     //init finish array from the passed one
-    int* finish = vec_clone(finished, n);;
+    int* finish = vec_clone(finished, n);
+    int happy = 0;
     //keep track of safe sequence
     int* safe_seq = vec_clone(cur_seq, n)
     for (i = 0; i < n; i++) {
             //loops through to find unfinished thread
+            int canExecute = 1;
             if (finish[i] == 0) {
                 int j = 0;
                 for (j = 0; j < m; j++) {
                     //for each need of the thread, check if we have the reasources
                     if (need[i][j] > work[j]) {
                         //if it cant be met, set cant execute to false
-                        free(finish);
-                        free(safe_seq);
-                        free(work);
-                        break;
+                        canExecute = 0;
                     }
                 }
-                for (k = 0; k < m; k++) {
-                    //simulate freeing of reasources
-                    work[k] += alloc[i][k];
-                }
-                //set the finish value for the thread to true
-                finish[i] = 1;
-                safe_seq[depth] = i;
-                //if this isnt the last process, recurse
-                if (depth != n){
-                    if (recursive_test(work, alloc, need, m, n, depth + 1, finish, safe_seq)){
-                        free(finish);
-                        free(safe_seq);
-                        free(work);
-                        return true;
+                if (canExecute){
+                        for (k = 0; k < m; k++) {
+                            //simulate freeing of reasources
+                            work[k] += alloc[i][k];
+                        }
+                        //set the finish value for the thread to true
+                        finish[i] = 1;
+                        safe_seq[depth] = i;
+                        //if this isnt the last process, recurse
+                        if (depth != n){
+                            if (recursive_test(work, alloc, need, m, n, depth + 1, finish, safe_seq)){
+                                free(finish);
+                                free(safe_seq);
+                                free(work);
+                                return true;
+                            }
+                        }else {
+                            //print the current schedule, free then return true
+                        }
+                    
                     }
-                }else {
-                    //print the current schedule then return true
-                }
             }
     }
 }
